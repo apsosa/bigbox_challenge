@@ -1,6 +1,7 @@
 from django.db import models
 from rest_framework import fields, serializers
-from core.models import Activity,Box,Category,BoxImage
+from core.models import Activity,Box,Category,BoxImage, Reason
+import json
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,13 +9,22 @@ class ActivitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
-
+        #reasons = Activity.objects.get(pk=instance.id)
+        #print(reasons.reasons.slug)
         return {
            'name' : instance.name,
             'slug' : instance.slug,
             'category': instance.category_id,
             'description': instance.description,
             'purchase_available': instance.purchase_available,
+            'reasons': [{
+                'name': instance.reasons.name,
+                #'order': instance.reasons.order,
+                #'slug': instance.reasons.slug,
+            }],
+            'activityimage_set':[{
+                'id' :instance.id
+            }]
         }
 
 class BoxSerializer(serializers.ModelSerializer):
