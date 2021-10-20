@@ -17,13 +17,14 @@ class CommonInfo(Common):
 
 
 class Reason(CommonInfo):
-    pass
+    order = models.IntegerField(default=0)
 
 
 
 class Category(CommonInfo):
     description = models.TextField(verbose_name=u'descripción')
     color = models.CharField(max_length=7, default='FFFFFF')
+    order = models.IntegerField(default=0)
 
 
 class Image(models.Model):

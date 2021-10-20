@@ -10,7 +10,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         #reasons = Activity.objects.get(pk=instance.id)
-        #print(reasons.reasons.slug)
+        print(instance.reasons)
         return {
            'name' : instance.name,
             'slug' : instance.slug,
@@ -33,6 +33,7 @@ class BoxSerializer(serializers.ModelSerializer):
         fields = '__all__'
     def to_representation(self, instance):
         box_image = BoxImage.objects.get(pk=instance.id)
+        print(box_image.upload)
         return {
            'name' : instance.name,
             'slug' : instance.slug,
