@@ -1,30 +1,42 @@
-from django.db import models
-from rest_framework import fields, serializers
-from core.models import Activity,Box,Category,BoxImage, Reason
-import json
+
+from rest_framework import  serializers
+from core.models import Activity, ActivityImage,Box,Category,BoxImage
+from django.contrib.auth.models import User
+
+
 
 class ActivitySerializer(serializers.ModelSerializer):
+    superusers = User.objects.filter(is_superuser=True)
+    print(superusers)
     class Meta:
         model = Activity
         fields = '__all__'
 
     def to_representation(self, instance):
-        #reasons = Activity.objects.get(pk=instance.id)
-        print(instance.reasons)
+        reasons = instance.reasons.all()
+        activity_imagen = ActivityImage.objects.filter(activity=instance.id)
+        reasons_set= []
+        for r in reasons:
+            reasons_set.append({
+                'name':r.name,
+                'order':r.order,
+                'slug':r.slug
+            })
+        activities_img_set = []
+        for act in activity_imagen:
+            upload = 'https://placeimg.com/'+ str(act.upload)
+            activities_img_set.append({
+                'id': act.id,
+                'order':act.order,
+                'upload':upload}) 
         return {
            'name' : instance.name,
             'slug' : instance.slug,
             'category': instance.category_id,
             'description': instance.description,
             'purchase_available': instance.purchase_available,
-            'reasons': [{
-                'name': instance.reasons.name,
-                #'order': instance.reasons.order,
-                #'slug': instance.reasons.slug,
-            }],
-            'activityimage_set':[{
-                'id' :instance.id
-            }]
+            'reasons':reasons_set,
+            'activityimage_set':activities_img_set,
         }
 
 class BoxSerializer(serializers.ModelSerializer):

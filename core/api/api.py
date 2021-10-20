@@ -1,31 +1,29 @@
 
 from django.db.models import manager
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import pagination
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
-from rest_framework.serializers import Serializer
+from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 from rest_framework.views import APIView
-from rest_framework import status,generics,filters,viewsets
-from core import api
+from rest_framework import filters
 from core.models import Activity, Box,Category,Reason
 from core.api.serializers import ActivitySerializer,BoxSerializer,CategorySerializer
 
 
 class ActivityAPIView(APIView):
     def get(self,request):
-        #filter_backends = [DjangoFilterBackend]
-        #filterset_fields = ['category']
-        filter_backends = [filters.SearchFilter]
-        search_fields = ['name', 'slug']
         params = []
         for p in request.query_params.lists():
             params.append(p)
 
         if len(params) == 0: #No parameters
             print("return all")
+            pg = LimitOffsetPagination()
             activities = Activity.objects.all()
-            activities_serializer = ActivitySerializer(activities,many=True)
+            page_roles = pg.paginate_queryset(queryset=activities, request=request, view=self)
+            activities_serializer = ActivitySerializer(instance=page_roles,many=True)
             return Response(activities_serializer.data)
         
         elif len(params) > 1: #multiple parameters
@@ -67,7 +65,7 @@ class ActivityAPIView(APIView):
 
 class ActivitySlugAPIView(APIView):
     def get(self,request,slug): #slug in a url
-        print(slug)
+        print("limit"+slug)
         activities = Activity.objects.filter(slug=slug)
         activities_serializer = ActivitySerializer(activities,many=True)
         return Response(activities_serializer.data)
