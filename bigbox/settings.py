@@ -92,10 +92,10 @@ WSGI_APPLICATION = 'bigbox.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'big_box',
-        'USER': 'Clark',
-        'PASSWORD': 'kent',
-        'HOST': 'localhost',
+        'NAME': 'd88aamu5oes4gn',
+        'USER': 'wwxshpwvdzgymn',
+        'PASSWORD': 'b58be67ec25c174b3f71032224b7de10141b82bc0a0848ae5fd7c6b78a1bd474',
+        'HOST': 'ec2-3-222-235-188.compute-1.amazonaws.com',
         'PORT': '5432' 
     }
 }
