@@ -19,7 +19,6 @@ class ActivityAPIView(APIView):
             params.append(p)
 
         if len(params) == 0: #No parameters
-            print("return all")
             pg = LimitOffsetPagination()
             activities = Activity.objects.all()
             page_roles = pg.paginate_queryset(queryset=activities, request=request, view=self)
@@ -27,29 +26,24 @@ class ActivityAPIView(APIView):
             return Response(activities_serializer.data)
         
         elif len(params) > 1: #multiple parameters
-            print("return multiples filter")
             data = Activity.objects.filter(id = params[0])
             activities = Activity.objects.filter(slug=params[0])
             activities_serializer = ActivitySerializer(activities,many=True)
             return Response(activities_serializer.data)
         
         elif request.query_params.get('box_slug') != None:
-            print("box_slug")
             box_slug = request.query_params.get('box_slug')
             activities = Activity.objects.filter(slug=box_slug)
             activities_serializer = ActivitySerializer(activities,many=True)
             return Response(activities_serializer.data)
         
         elif request.query_params.get('category_id') != None:
-            print("category_id")
             category_id = request.query_params.get('category_id')
-            print(category_id)
             activities = Activity.objects.filter(category_id=category_id)
             activities_serializer = ActivitySerializer(activities,many=True)
             return Response(activities_serializer.data)
 
         elif request.query_params.get('reason_id') != None:
-            print("reason_id")
             reason_id = request.query_params.get('reason_id')
             reason = Reason.objects.filter(id=reason_id)
             activities = Activity.objects.filter(reasons__in=reason)
@@ -65,7 +59,6 @@ class ActivityAPIView(APIView):
 
 class ActivitySlugAPIView(APIView):
     def get(self,request,slug): #slug in a url
-        print("limit"+slug)
         activities = Activity.objects.filter(slug=slug)
         activities_serializer = ActivitySerializer(activities,many=True)
         return Response(activities_serializer.data)
@@ -82,7 +75,6 @@ class BoxAPIView(APIView):
             return Response(boxes_serializer.data)
         
         elif request.query_params.get('slug') != None: #slug as a paremeter
-            print(request.query_params.get('slug'))
             box_slug = request.query_params.get('slug')
             boxes = Box.objects.filter(slug=box_slug)
             boxes_serializer = BoxSerializer(boxes,many=True)
@@ -90,7 +82,6 @@ class BoxAPIView(APIView):
         
 class BoxSlugAPIView(APIView):
     def get(self,request,slug): #slug in a url
-        print(slug)
         boxes = Box.objects.filter(slug=slug)
         boxes_serializer = BoxSerializer(boxes,many=True)
         return Response(boxes_serializer.data)
@@ -106,7 +97,6 @@ class CategoryAPIView(APIView):
             return Response(categories_serializer.data)
 
         elif request.query_params.get('slug') != None: #slug as a paremeter
-            print(request.query_params.get('slug'))
             box_slug = request.query_params.get('slug')
             boxes = Category.objects.filter(slug=box_slug)
             boxes_serializer = CategorySerializer(boxes,many=True)

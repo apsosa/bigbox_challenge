@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 
 
 class ActivitySerializer(serializers.ModelSerializer):
-    superusers = User.objects.filter(is_superuser=True)
-    print(superusers)
     class Meta:
         model = Activity
         fields = '__all__'
@@ -45,7 +43,7 @@ class BoxSerializer(serializers.ModelSerializer):
         fields = '__all__'
     def to_representation(self, instance):
         box_image = BoxImage.objects.get(pk=instance.id)
-        print(box_image.upload)
+        box_image_set ='https://placeimg.com/'+ str(box_image.upload)
         return {
            'name' : instance.name,
             'slug' : instance.slug,
@@ -56,7 +54,7 @@ class BoxSerializer(serializers.ModelSerializer):
             'boximage_set': [{
                     'id' : box_image.id,
                     'order': box_image.order,
-                    #'upload': box_image.upload,            
+                    'upload': box_image_set,            
                 }]
         }
 
