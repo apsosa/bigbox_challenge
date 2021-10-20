@@ -29,7 +29,7 @@ SECRET_KEY =  "'django-insecure-8&(h_fz(jfgqd=dzdleldxg@-##e2)#78il-akh&8vd97cl(
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1','secret-springs-30258.herokuapp.com']
 
 # Application definition
 
