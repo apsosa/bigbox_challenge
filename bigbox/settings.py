@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'core',
     'django_secrets',
     'django_filters',
+    'debug_toolbar',
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
@@ -53,7 +55,12 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
