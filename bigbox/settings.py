@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_filters',
     'debug_toolbar',
     'django_extensions',
+    'historical_data',
 ]
 
 REST_FRAMEWORK = {
