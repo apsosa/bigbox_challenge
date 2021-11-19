@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_extensions',
     'historical_data',
-    'quickstart'
+    'quickstart',
+    'snippets.apps.SnippetsConfig',
 ]
 
 REST_FRAMEWORK = {
