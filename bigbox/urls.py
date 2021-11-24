@@ -38,8 +38,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('core.api.urls')),
     path('/api-auth/', include('rest_framework.urls')),
-    path('graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
-    #path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
+    #path('graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
+    path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

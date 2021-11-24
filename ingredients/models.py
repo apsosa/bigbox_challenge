@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 # cookbook/ingredients/models.py
-from django.db import models
 
 class CategoryI(models.Model):
     name = models.CharField(max_length=100)
