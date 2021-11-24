@@ -1,6 +1,17 @@
+
+import graphene
+import ingredients.schema
+
+class Query(ingredients.schema.Query, graphene.ObjectType):
+    # This class will inherit from multiple Queries
+    # as we begin to add more apps to our project
+    pass
+
+schema = graphene.Schema(query=Query)
+
+"""
 import graphene
 from graphene_django import DjangoObjectType
-
 from ingredients.models import CategoryI, Ingredient
 
 class CategoryType(DjangoObjectType):
@@ -28,3 +39,4 @@ class Query(graphene.ObjectType):
             return None
 
 schema = graphene.Schema(query=Query)
+"""
