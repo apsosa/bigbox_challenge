@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'historical_data',
     'quickstart',
     'snippets.apps.SnippetsConfig',
+    'graphene_django',
+    'ingredients',
+
 ]
 
 REST_FRAMEWORK = {
@@ -57,6 +60,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
+GRAPHENE = {
+    "SCHEMA": "django_root.schema.schema"
 }
 
 INTERNAL_IPS = [
