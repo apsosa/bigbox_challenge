@@ -63,7 +63,7 @@ REST_FRAMEWORK = {
 }
 
 GRAPHENE = {
-    "SCHEMA": "django_root.schema.schema"
+    "SCHEMA": "bigbox.schema.schema"
 }
 
 INTERNAL_IPS = [
